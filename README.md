@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# prgen-site
 
-## Getting Started
+Minimal landing page for **prgen**.
 
-First, run the development server:
+This site exists only to explain what `prgen` is and provide a clean, copy-pasteable install command.  
+It is not a product surface. The CLI is the product.
+
+---
+
+## What this is
+
+- Single-page application (SPA)
+- Static content only
+- No backend
+- No auth
+- No analytics
+- No demos
+
+Purpose:
+- Clear positioning
+- Installation instructions
+- Example output
+
+---
+
+## Tech stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui (UI primitives only)
+
+---
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Static output only.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Related
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* CLI repo: [https://github.com/shaurya-afk/prgen](https://github.com/shaurya-afk/prgen)
+* Install:
 
-## Deploy on Vercel
+  ```bash
+  pipx install git+https://github.com/shaurya-afk/prgen.git@v0.1.1
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+This repository should remain simple.
+Any feature that adds complexity without improving clarity does not belong here.
+
+```
