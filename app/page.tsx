@@ -1,65 +1,114 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { Check, Copy } from "lucide-react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+
+export default function Page() {
+  const [copied, setCopied] = useState(false)
+  const installCommand = "pipx install git+https://github.com/shaurya-afk/prgen.git@v0.1.1"
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(installCommand)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4 py-16">
+      <div className="max-w-2xl w-full space-y-16">
+        {/* Hero */}
+        <section className="space-y-6">
+          <h1 className="font-mono text-4xl font-bold tracking-tight">prgen</h1>
+          <p className="text-xl text-muted-foreground">Deterministic PR descriptions from git diff.</p>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            No AI agents. No hallucination. No automation without consent.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+          <div className="relative">
+            <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+              <code className="font-mono text-sm">{installCommand}</code>
+            </pre>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="absolute top-2 right-2"
+              onClick={copyToClipboard}
+              aria-label="Copy install command"
+            >
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            </Button>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="space-y-4">
+          <h2 className="font-mono text-2xl font-semibold">How it works</h2>
+          <ol className="space-y-2 list-decimal list-inside text-muted-foreground">
+            <li>You write code</li>
+            <li>You commit changes</li>
+            <li>You run prgen</li>
+          </ol>
+          <p className="text-muted-foreground leading-relaxed pt-2">
+            git diff → deterministic rules → structured PR text
+          </p>
+        </section>
+
+        {/* Example output */}
+        <section className="space-y-4">
+          <h2 className="font-mono text-2xl font-semibold">Example output</h2>
+          <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+            <code className="font-mono text-sm text-muted-foreground">{`## Changes
+
+### Modified Files
+- src/parser.py: Add support for multiline commit messages
+- tests/test_parser.py: Add test cases for multiline parsing
+
+### Summary
+- Added logic to parse multiline commit messages
+- Implemented line continuation detection
+- Updated tests to cover new functionality
+
+## Affected Components
+- Parser module
+- Test suite`}</code>
+          </pre>
+        </section>
+
+        {/* What it deliberately does NOT do */}
+        <section className="space-y-4">
+          <h2 className="font-mono text-2xl font-semibold">What it deliberately does NOT do</h2>
+          <ul className="space-y-2 list-disc list-inside text-muted-foreground">
+            <li>Does not post PRs</li>
+            <li>Does not run in CI</li>
+            <li>Does not guess intent</li>
+            <li>Does not require GitHub permissions</li>
+            <li>Does not depend on LLMs</li>
+          </ul>
+        </section>
+
+        {/* Footer */}
+        <footer className="pt-8 border-t border-border">
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a
+              href="https://github.com/shaurya-afk/prgen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              GitHub repository
+            </a>
+            <a
+              href="https://github.com/shaurya-afk/prgen/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              Releases
+            </a>
+          </div>
+        </footer>
+      </div>
     </div>
-  );
+  )
 }
